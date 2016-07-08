@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+
+    <context:component-scan base-package="com.csf.service"/>
+    <aop:aspectj-autoproxy/>
+
+    <!--define a aspect-->
+    <bean id="accessControlAspect" class="com.johnny.aspect.AccessControlAspect"/>
+    <aop:config>
+        <aop:aspect id="accessControlAspect" ref="accessControlAspect">
+            <aop:pointcut id="pointcut1"
+                          expression="within(com.csf.service..*) and @annotation(access) and args(request,..)"/>
+            <aop:around pointcut-ref="pointcut1" method="process"/>
+        </aop:aspect>
+    </aop:config>
+
+
+    <!-- JAXRS service-->
+    <!-- do not use import statements if CXFServlet init parameters link to this beans.xml -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+
+    <jaxrs:server id="springservice" address="/">
+        <jaxrs:serviceBeans>
+            <ref bean="userService"/>
+            <ref bean="accountService"/>
+        </jaxrs:serviceBeans>
+    </jaxrs:server>
+
+
+</beans>

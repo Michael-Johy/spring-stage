@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <bean id="propertySourcesPlaceholderConfigurer"
+          class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <!--<property name="locations" value="classpath:common-db.properties"/>-->
+        <property name="locations">
+            <list>
+                <value>classpath:common-db.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- define a datasource -->
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <!--<property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>-->
+        <property name="jdbcUrl" value="${mysql.db.url}"/>
+        <property name="username" value="${mysql.db.username}"/>
+        <property name="password" value="${mysql.db.password}"/>
+        <property name="driverClassName" value="${mysql.db.driverclass}"/>
+        <property name="maximumPoolSize" value="${mysql.jdbc.maxPoolSize}"/>
+        <property name="poolName" value="${mysql.jdbc.poolName}"/>
+        <property name="connectionTimeout" value="${mysql.jdbc.timeout}"/>
+    </bean>
+
+    <!-- define a sqlSessionFactory -->
+    <bean id="investSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis/invest-config.xml"/>
+    </bean>
+
+    <!-- jdbc transaction support-->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- enable transaction annotation support -->
+    <tx:annotation-driven transaction-manager="txManager" mode="proxy" proxy-target-class="true" />
+
+    <!--&lt;!&ndash;transaction management xml-based&ndash;&gt;-->
+    <!--<tx:advice id="txAdvice" transaction-manager="txManager">-->
+        <!--<tx:attributes>-->
+            <!--<tx:method name="get*" propagation="REQUIRED" isolation="DEFAULT" read-only="true"-->
+                       <!--rollback-for="java.lang.Exception" timeout="-1"/>-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="servicePoint" expression="execution(public * com.csf.service.*.*(..))"/>-->
+        <!--<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePoint"/>-->
+    <!--</aop:config>-->
+    <!--&lt;!&ndash;transaction management xml-configuration based&ndash;&gt;-->
+
+    <!-- jta transaction manager-->
+    <!--<bean id="jtaTransactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">-->
+    <!--</bean>-->
+
+</beans>

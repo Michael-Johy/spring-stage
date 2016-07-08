@@ -1,0 +1,278 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.csf</groupId>
+    <artifactId>Spring Johnny</artifactId>
+    <packaging>war</packaging>
+    <version>1.0.0</version>
+    <name>Spring APP</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <spring.version>4.2.6.RELEASE</spring.version>
+        <log4j.version>1.2.17</log4j.version>
+        <mybatis.version>3.3.1</mybatis.version>
+        <mybatis-spring.version>1.1.1</mybatis-spring.version>
+        <aspectjweaver.version>1.8.8</aspectjweaver.version>
+        <mysql.driver.version>5.1.38</mysql.driver.version>
+        <cxf.version>3.1.6</cxf.version>
+        <servlet.version>3.1.0</servlet.version>
+        <guava.version>19.0</guava.version>
+        <gson.version>2.6.2</gson.version>
+        <amq.version>5.7.0</amq.version>
+        <jms.version>2.0</jms.version>
+        <commonlang.version>3.0</commonlang.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${mybatis-spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectjweaver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.driver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>2.4.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>javax.jms-api</artifactId>
+            <version>${jms.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-core</artifactId>
+            <version>5.7.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-spring</artifactId>
+            <version>5.13.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+
+        <!-- Jodd start-->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-core</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/org.jodd/jodd-bean -->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-bean</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/org.jodd/jodd-lagarto -->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-lagarto</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/org.jodd/jodd-json -->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-json</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/org.jodd/jodd-log -->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-log</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/org.jodd/jodd-madvoc -->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-madvoc</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/org.jodd/jodd-props -->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-props</artifactId>
+            <version>3.7.1</version>
+        </dependency><!-- http://mvnrepository.com/artifact/org.jodd/jodd-mail -->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-mail</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/commons-collections/commons-collections -->
+        <!-- http://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.1</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.14</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.13</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-collections/commons-collections -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commonlang.version}</version>
+        </dependency>
+
+
+    </dependencies>
+
+
+    <build>
+        <finalName>springtest</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+                <version>3.5.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>client</classifier>
+                            <jarName>springtest-johnny</jarName>
+                            <includes>
+                                <include>**/constant/*</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>**/spring</directory>
+            </resource>
+        </resources>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>remote release repo</name>
+            <url>http://192.168.0.221:8081/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>remote snapshots repo</name>
+            <url>http://192.168.0.221:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>

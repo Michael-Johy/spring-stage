@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.johnny.dao.invest.MobileUserDao">
+
+    <resultMap id="mobileUserMap" type="mobileUserType">
+        <result column="userid" property="userid" jdbcType="INTEGER"/>
+        <result column="pkey" property="pkey" jdbcType="VARCHAR"/>
+        <result column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="sql1">
+        userid, pkey, uuid, phone, name
+    </sql>
+
+    <select id="findByPkey" parameterType="string" resultType="mobileUserType">
+        select
+        <include refid="sql1"/>
+         from mobile_user where pkey = #{pkey}
+    </select>
+    
+    <select id="findByPkeys" parameterType="list" resultType="mobileUserType">
+        select
+        <include refid="sql1"/>
+        from mobile_user where pkey in
+        <foreach collection="pkeys" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="updateName" parameterType="mobileUserType">
+        update mobile_user set name = #{name} where pkey = #{pkey}
+    </update>
+
+    <update id="updateNonField" parameterType="mobileUserType">
+        UPDATE mobile_user set aa = #{name} where pkey = #{pkey}
+    </update>
+
+</mapper>
