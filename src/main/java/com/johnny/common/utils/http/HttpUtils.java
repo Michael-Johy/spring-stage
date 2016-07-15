@@ -98,7 +98,7 @@ public class HttpUtils {
         HttpPost httpPost = null;
         try {
             httpPost = new HttpPost(url);
-//            httpPost.addHeader("accept", DEFAULT_ACCEPT);
+            httpPost.addHeader("accept", DEFAULT_ACCEPT);
             List<NameValuePair> paramList = constructNameValuePair(paramMap);
             httpPost.setEntity(new UrlEncodedFormEntity(paramList, DEFAULT_CHARSET));
             HttpClient httpClient = getPooledHttpClient(DEFAULT_TIMEOUT);
