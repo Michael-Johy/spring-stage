@@ -24,6 +24,14 @@ public class TreeMapTest {
         treeMap.entrySet().stream().forEach(a ->{
             System.out.println("key:" + a.getKey() + ", Value:" + a.getValue());
         });
+    }
 
+    @Test
+    public void test2(){
+        StringBuilder s = new StringBuilder();
+        s.append("aaa");
+        s.append("&");
+        s.delete(s.lastIndexOf("&"), s.length());
+        System.out.println(s.toString());
     }
 }
