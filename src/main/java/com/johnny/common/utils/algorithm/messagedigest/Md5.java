@@ -6,6 +6,10 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 
 /**
+ * 消息摘要算法注意事项：当执行POST请求时，若请求参数中包含有特殊字符或者中文字符，则默认会使用
+ * x-www-form-urlencoded 对参数进行URLEncode , 此时接口如果需要签名的话，则需要考虑生成签名：使用
+ * urlencoded之前或之后的字符串
+ *
  * Created by johnny01.yang on 2016/6/29.
  */
 public class Md5 {
