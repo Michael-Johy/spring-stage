@@ -7,4 +7,8 @@
 
     <bean id="userService" class="com.johnny.service.impl.UserServiceImpl"/>
 
+    <bean id="swaggerTestService" class="com.johnny.service.impl.SwaggerTestServiceImpl">
+        <property name="swaggerTestDao" ref="swaggerTestDao"/>
+    </bean>
+
 </beans>

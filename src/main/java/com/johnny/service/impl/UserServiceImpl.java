@@ -38,8 +38,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String aName(HttpServletRequest request, String name) {
-
-
         return null;
     }
 }

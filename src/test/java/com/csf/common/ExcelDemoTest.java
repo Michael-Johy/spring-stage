@@ -2,7 +2,7 @@ package com.csf.common;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Sets;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 /**
  * Created by johnny01.yang on 2016/6/21.

@@ -7,4 +7,6 @@
         <property name="mapperInterface" value="com.johnny.dao.invest.MobileUserDao"/>
         <property name="sqlSessionFactory" ref="investSqlSessionFactory"/>
     </bean>
+
+    <bean id="swaggerTestDao" class="com.johnny.dao.SwaggerTestDao"/>
 </beans>

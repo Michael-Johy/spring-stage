@@ -24,6 +24,7 @@
         <jodd.version>3.7.1</jodd.version>
         <commonlang.version>3.0</commonlang.version>
         <commonio.version>2.5</commonio.version>
+        <swagger.version>1.5.9</swagger.version>
     </properties>
 
     <dependencies>
@@ -221,6 +222,20 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>3.14</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.swagger/swagger-core -->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-core</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <!-- Swagger Stuff -->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-jaxrs</artifactId>
+            <version>${swagger.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

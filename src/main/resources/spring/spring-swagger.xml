@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Swagger writers-->
+    <bean id="swaggerSerializers" class="io.swagger.jaxrs.listing.SwaggerSerializers"/>
+
+    <!-- JSON mapper-->
+    <bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider"/>
+
+    <!-- Swagger API listing resource-->
+    <bean id="swaggerResource" class="io.swagger.jaxrs.listing.ApiListingResource"/>
+
+
+    <!-- this scan the classes for resources-->
+    <bean id="swaggerConfig" class="io.swagger.jaxrs.config.BeanConfig">
+        <property name="resourcePackage" value="com.johnny.service"/>
+        <property name="version" value="1.0.0"/>
+        <property name="host" value="localhost:80"/>
+        <property name="basePath" value="/api"/>
+        <property name="title" value="Spring Petstore"/>
+        <property name="description" value="This is a app."/>
+        <property name="contact" value="johnson.ycp@gmail.com"/>
+        <property name="license" value="Apache 2.0"/>
+        <property name="licenseUrl" value="http://www.apache.org/licenses/LICENSE-2.0.html"/>
+        <!-- <property name="filterClass" value="ApiAuthorizationFilterImpl"/> -->
+        <property name="scan" value="true"/>
+    </bean>
+
+</beans>

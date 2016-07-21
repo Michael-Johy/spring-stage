@@ -1,7 +1,5 @@
 package com.johnny.service;
 
-import org.apache.ibatis.annotations.Param;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

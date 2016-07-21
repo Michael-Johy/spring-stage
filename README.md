@@ -18,7 +18,17 @@
 - Apache poi
 - Apaceh httpcomponent
 - Maven
+- Swagger
 
+## Swagger Note
+- Reference
+   - https://github.com/swagger-api/swagger-samples   swagger-java-cxf-sample
+- Use
+   - download https://github.com/swagger-api/swagger-ui 
+   - open dist/index.html
+   - http://localhost:80/api/swagger.json
+- Result
+  ![picture](https://github.com/Michael-Johy/spring-johnny/blob/master/swagger.png)
 ## Requirement
 - JDK1.8+
 - Spring Framework4.2.6.RELEASE

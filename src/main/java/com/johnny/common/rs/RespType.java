@@ -28,5 +28,12 @@ public enum RespType {
         return RespType.SUCCESS;
     }
 
+    public String getCode(){
+        return code;
+    }
+    public String getType(){
+        return type;
+    }
+
 
 }
