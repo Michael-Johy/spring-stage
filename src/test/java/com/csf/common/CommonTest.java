@@ -16,6 +16,7 @@ import org.springframework.beans.propertyeditors.CharsetEditor;
 import org.springframework.util.StringUtils;
 
 import java.text.MessageFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -114,6 +115,19 @@ public class CommonTest {
 
     private void inValid(Boolean valid) {
         valid = false;
+    }
+
+    @Test
+    public void test8() {
+        Date date = new Date();
+        final String SYNC_RESULT_EMAIL_SUBJECT = "资产转移系统%d年%d月%d日结算情况";
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        System.out.println(year);
+        System.out.println(String.format(SYNC_RESULT_EMAIL_SUBJECT, year, month, day));
     }
 
 
