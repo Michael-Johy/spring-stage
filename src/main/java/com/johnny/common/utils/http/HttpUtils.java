@@ -1,6 +1,8 @@
 package com.johnny.common.utils.http;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.impl.WeakHashtable;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -9,6 +11,7 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
@@ -21,6 +24,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +34,9 @@ import java.util.Map;
  * Created by johnny01.yang on 2016/6/30.
  */
 public class HttpUtils {
+
+    private HttpUtils() {
+    }
 
     private static final Logger logger = LoggerFactory.getLogger(HttpUtils.class);
 
@@ -46,6 +53,8 @@ public class HttpUtils {
     public static final String AND = "&";
 
     public static final String EQUALS = "=";
+
+    private static final String BLANK = "";
 
     /**
      * Using Get method to execute a request
@@ -146,27 +155,37 @@ public class HttpUtils {
      * 拼接URL和请求参数
      *
      * @param baseUrl  eg:http://www.baidu.com?
-     * @param paramMap {a-> 1, b-> 3}
-     * @return http://www.baidu.com?a=1&b=3
+     * @param paramMap {a-> null, b-> 3}
+     * @return http://www.baidu.com?a=&b=3
      */
-    public static String appendRequestParam(String baseUrl, Map<String, Object> paramMap) {
-        if (StringUtils.isBlank(baseUrl))
+    public static String appendRequestParam(String baseUrl, Map<String, Object> paramMap) throws UnsupportedEncodingException {
+        String fmtUrl = baseUrl;
+        if (StringUtils.isBlank(baseUrl)) {
             return null;
+        }
         if (!baseUrl.endsWith(QUESTION_MARK)) {
-            baseUrl = baseUrl.concat(QUESTION_MARK);
+            fmtUrl = fmtUrl.concat(QUESTION_MARK);
         }
         for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
-            baseUrl = baseUrl.concat(entry.getKey()).concat(EQUALS).concat(entry.getValue().toString()).concat(AND);
+            if (StringUtils.isBlank(entry.getKey())) {
+                continue;
+            }
+            String fmtKey = URLEncoder.encode(entry.getKey(), DEFAULT_CHARSET);
+            String fmtValue = BLANK;
+            if (null != entry.getValue()) {
+                fmtValue = URLEncoder.encode(entry.toString(), DEFAULT_CHARSET);
+            }
+            fmtUrl = fmtUrl.concat(fmtKey).concat(EQUALS).concat(fmtValue).concat(AND);
         }
-        return baseUrl.substring(0, baseUrl.length() - 1);
+        return fmtUrl.substring(0, fmtUrl.length() - 1);
     }
 
-    public static void main(String[] args) {
-        Map<String, Object> param = new HashMap<>();
-        param.put("a", 1);
-        param.put("b", 2);
-        System.out.println(HttpUtils.appendRequestParam("http://www.baidu.com?", param));
+    public static void main(String[] args) throws UnsupportedEncodingException {
+        String baseUrl = "http://www.baidu.com";
+        Map<String, Object> map = new HashMap<>();
+        map.put("1", null);
+        map.put("2", "aa");
+        System.out.println(HttpUtils.appendRequestParam(baseUrl, map));
     }
-
 
 }
