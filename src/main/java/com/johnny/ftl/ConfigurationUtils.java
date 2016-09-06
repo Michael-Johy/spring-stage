@@ -29,11 +29,12 @@ public class ConfigurationUtils {
         static final Configuration configuration;
         static {
             configuration = new Configuration(Configuration.VERSION_2_3_23);
-            try {
-                configuration.setDirectoryForTemplateLoading(new File("D:\\templates"));
-            } catch (IOException e) {
-                logger.error(e.getMessage(), e);
-            }
+//            try {
+//                configuration.setDirectoryForTemplateLoading(new File("D:\\templates"));
+//            } catch (IOException e) {
+//                logger.error(e.getMessage(), e);
+//            }
+
             configuration.setDefaultEncoding("UTF-8");
             configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
             configuration.setLogTemplateExceptions(false);
@@ -66,7 +67,7 @@ public class ConfigurationUtils {
 
     public static void main(String[] args)throws IOException, TemplateException{
         Writer out = new OutputStreamWriter(System.out);
-        Template template = getTemplate("test.ftl2");
+        Template template = getTemplate("/test.ftl2");
         template.process(getDataModel(), out);
         template.process(getData1Model(), out);
     }
