@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:beans="http://www.springframework.org/schema/beans"
+            xmlns="http://www.mycompany.com/schema/xmltest"
+            targetNamespace="http://www.mycompany.com/schema/xmltest"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://www.springframework.org/schema/beans"/>
+
+    <!--<xsd:element name="new">-->
+    <!--<xsd:complexType>-->
+    <!--<xsd:complexContent>-->
+    <!--<xsd:extension base="beans:identifiedType">-->
+    <!--<xsd:attribute name="lenient" type="xsd:boolean"/>-->
+    <!--<xsd:attribute name="pattern" type="xsd:string" use="required"/>-->
+    <!--</xsd:extension>-->
+    <!--</xsd:complexContent>-->
+    <!--</xsd:complexType>-->
+    <!--</xsd:element>-->
+
+    <!--<xsd:simpleType name="name">-->
+    <!--</xsd:simpleType>-->
+    <!---->
+    <!--<xsd:element name="aa">-->
+    <!--<xsd:complexType>-->
+    <!--<xsd:complexContent>-->
+    <!--<xsd:extension base="beans:identifiedType">-->
+    <!---->
+    <!--</xsd:extension>-->
+    <!--</xsd:complexContent>-->
+    <!--</xsd:complexType>-->
+    <!--</xsd:element>-->
+
+    <!--<xsd:attribute name="age" type="xsd:integer"/>-->
+    <!--<xsd:attribute name="name" type="xsd:string"/>-->
+    <xsd:element name="pp">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="beans:identifiedType">
+                    <xsd:all>
+                        <xsd:element name="sdf" type="xsd:anyType" minOccurs="0"/>
+                    </xsd:all>
+                    <xsd:attribute name="age" type="xsd:integer"/>
+                    <xsd:attribute name="name" type="xsd:string"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

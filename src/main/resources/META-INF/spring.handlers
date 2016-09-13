@@ -1,0 +1,2 @@
+http\://www.mycompany.com/schema/myns=com.johnny.externxml.handler.MynsNamespaceHandler
+http\://www.mycompany.com/schema/xmltest=com.johnny.externxml.handler.XmltestNamespaceHandler

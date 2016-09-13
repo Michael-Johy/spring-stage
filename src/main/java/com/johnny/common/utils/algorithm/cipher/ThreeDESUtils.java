@@ -34,7 +34,7 @@ public class ThreeDESUtils {
             SecretKeyFactory keyfactory = SecretKeyFactory.getInstance(Algorithm);
             Key deskey = keyfactory.generateSecret(spec);
 
-            Cipher cipher = Cipher.getInstance("desede/ECB/PKCS5Padding");
+            Cipher cipher = Cipher.getInstance("desede/ECB/PKCS5Padding");// 加密方法/分组对称加密模式/数据块填充方式
             cipher.init(Cipher.ENCRYPT_MODE, deskey);
             byte[] bOut = cipher.doFinal(dataBytes);
             return new BASE64Encoder().encode(bOut);

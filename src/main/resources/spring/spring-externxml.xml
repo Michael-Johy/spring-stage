@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:myns="http://www.mycompany.com/schema/myns"
+       xmlns:xmltest="http://www.mycompany.com/schema/xmltest"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.mycompany.com/schema/xmltest
+       http://www.mycompany.com/schema/xmltest/xmltest.xsd
+       http://www.mycompany.com/schema/myns
+       http://www.mycompany.com/schema/myns/myns.xsd">
+
+    <myns:dateformat lenient="true" id="dateFormat" pattern="yyyy-MM-dd"/>
+
+    <xmltest:pp id="aa" name="myname" age="16">
+        <xmltest:sdf>
+            <ref bean="dateFormat"/>
+        </xmltest:sdf>
+    </xmltest:pp>
+
+</beans>

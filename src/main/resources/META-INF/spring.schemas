@@ -1,0 +1,3 @@
+#http\://www.mycompany.com/schema/myns/myns.xsd=com/johnny/externxml/myns.xsd
+http\://www.mycompany.com/schema/myns/myns.xsd=xsd/myns.xsd
+http\://www.mycompany.com/schema/xmltest/xmltest.xsd=xsd/xmltest.xsd
