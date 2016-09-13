@@ -29,7 +29,8 @@ import java.util.Map;
 /**
  * Description:  * This HttpUtils delegate to Apache HttpComponents to execute GET|POST request
  * and HttpMime to process multipart upload request
- * see <a href="https://hc.apache.org/">https://hc.apache.org/</a>
+ *
+ * @see <a href="https://hc.apache.org/">https://hc.apache.org/</a>
  * Author: johnny01.yang
  * Date  : 2016-08-22 11:47
  */
@@ -163,49 +164,27 @@ public class HttpUtils {
      * @param baseUrl  eg:http://www.aaa.com?
      * @param paramMap {a-> 1, b-> 3}
      * @return http://www.aaa.com?a=1&b=3
-     * @deprecated Use {@link HttpUtils#appendFmtRequestParam(String, Map<String, Object>)} instead. This
-     * method is scheduled for removal which ignore params(key and value) with Chinese or paramValue is null
      */
-    @Deprecated
     public static String appendRequestParam(String baseUrl, Map<String, Object> paramMap) {
+        if (StringUtils.isBlank(baseUrl)) {
+            return null;
+        }
         StringBuilder fmtUrl = new StringBuilder(baseUrl);
         if (StringUtils.isNotBlank(baseUrl)) {
             if (!baseUrl.endsWith(CommonConstants.QUESTION_MARK)) {
                 fmtUrl = fmtUrl.append(CommonConstants.QUESTION_MARK);
             }
             for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
+                if (StringUtils.isBlank(entry.getKey())) {
+                    continue;
+                }
+                String fmtValue = CommonConstants.BLANK;
+                if (null != entry.getValue()) {
+                    fmtValue = entry.getValue().toString();
+                }
                 fmtUrl = fmtUrl.append(entry.getKey()).append(CommonConstants.EQUALS)
-                        .append(entry.getValue()).append(CommonConstants.AND);
+                        .append(fmtValue).append(CommonConstants.AND);
             }
-        }
-        return fmtUrl.substring(0, fmtUrl.length() - 1);
-    }
-
-    /**
-     * 拼接URL和请求参数. This method is a replace for {@link HttpUtils#appendRequestParam(String, Map<String, Object>)}
-     *
-     * @param baseUrl  eg:http://www.aaa.com?
-     * @param paramMap key and value map
-     * @return responseStr
-     */
-    public static String appendFmtRequestParam(String baseUrl, Map<String, Object> paramMap) throws UnsupportedEncodingException {
-        String fmtUrl = baseUrl;
-        if (StringUtils.isBlank(baseUrl)) {
-            return null;
-        }
-        if (!baseUrl.endsWith(CommonConstants.QUESTION_MARK)) {
-            fmtUrl = fmtUrl.concat(CommonConstants.QUESTION_MARK);
-        }
-        for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
-            if (StringUtils.isBlank(entry.getKey())) {
-                continue;
-            }
-            String fmtKey = URLEncoder.encode(entry.getKey(), DEFAULT_CHARSET);
-            String fmtValue = CommonConstants.BLANK;
-            if (null != entry.getValue()) {
-                fmtValue = URLEncoder.encode(entry.toString(), DEFAULT_CHARSET);
-            }
-            fmtUrl = fmtUrl.concat(fmtKey).concat(CommonConstants.EQUALS).concat(fmtValue).concat(CommonConstants.AND);
         }
         return fmtUrl.substring(0, fmtUrl.length() - 1);
     }
@@ -227,20 +206,24 @@ public class HttpUtils {
      * @param paramMap extra param
      * @return responseStr
      */
-    public static String executePostPartRequest(String path, Map<String, File> fileMap, Map<String, String> paramMap) {
+    public static String executePostPartRequest(String path, Map<String, List<File>> fileMap, Map<String, String> paramMap) {
         String result = null;
         HttpClient client;
-        HttpPost httpPost;
+        HttpPost httpPost = null;
         try {
             httpPost = new HttpPost(path);
             client = getPooledHttpClient(DEFAULT_TIMEOUT);
 
             MultipartEntityBuilder mBuilder = MultipartEntityBuilder.create();
-            for (Map.Entry<String, File> entry : fileMap.entrySet()) {
-                mBuilder.addPart(entry.getKey(), new FileBody(entry.getValue()));
+            for (Map.Entry<String, List<File>> entry : fileMap.entrySet()) {
+                for (File file : entry.getValue()) {
+//                    mBuilder.addPart(entry.getKey(), new FileBody(file));
+                    mBuilder.addPart(entry.getKey(), new FileBody(file, ContentType.DEFAULT_BINARY, URLEncoder.encode(file.getName(), "UTF-8")));//防止文件名有中文
+                }
             }
             for (Map.Entry<String, String> entry : paramMap.entrySet()) {
-                mBuilder.addPart(entry.getKey(), new StringBody(entry.getValue(), ContentType.APPLICATION_FORM_URLENCODED));
+//                mBuilder.addPart(entry.getKey(), new StringBody(entry.getValue(), ContentType.APPLICATION_FORM_URLENCODED));
+                mBuilder.addPart(entry.getKey(), new StringBody(entry.getValue(), ContentType.create("application/x-www-form-urlencoded", Charset.forName("UTF-8"))));
             }
             HttpEntity httpEntity = mBuilder.build();
             httpPost.setEntity(httpEntity);
@@ -257,7 +240,47 @@ public class HttpUtils {
             LOGGER.error(e.getMessage(), e);
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
+        } finally {
+            if (null != httpPost) {
+                httpPost.abort();
+            }
         }
         return result;
+    }
+
+    /**
+     * execute file download 获取文件输入流
+     *
+     * @param path request url
+     * @return fileInputStream
+     */
+    public static InputStream executeGetPartRequest(String path) {
+        HttpGet httpGet = null;
+        try {
+            URL url = new URL(path);
+            URI uri = new URI(url.getProtocol(), null, url.getHost(), url.getPort(), url.getPath(),
+                    url.getQuery(), null);
+            httpGet = new HttpGet(uri);
+//          httpGet.addHeader("accept", DEFAULT_ACCEPT);
+            HttpClient httpClient = getPooledHttpClient(DEFAULT_TIMEOUT);
+            HttpResponse response = httpClient.execute(httpGet);
+            if (response.getStatusLine().getStatusCode() >= WRONG_CODE) {
+                LOGGER.error("Http Request Failed: URL".concat(path).concat(",Params:")
+                        .concat(",Error Code").concat(String.valueOf(response.getStatusLine().getStatusCode())));
+            } else {
+                return response.getEntity().getContent();
+            }
+        } catch (MalformedURLException e) {
+            LOGGER.error(e.getMessage(), e);
+        } catch (URISyntaxException e) {
+            LOGGER.error(e.getMessage(), e);
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e);
+        } finally {
+            if (null != httpGet) {
+                httpGet.abort();
+            }
+        }
+        return null;
     }
 }

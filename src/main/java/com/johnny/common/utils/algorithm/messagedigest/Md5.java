@@ -3,6 +3,7 @@ package com.johnny.common.utils.algorithm.messagedigest;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 
 /**
@@ -25,8 +26,9 @@ public class Md5 {
         if (StringUtils.isNotBlank(str)) {
             try {
                 MessageDigest md5 = MessageDigest.getInstance("MD5");
-                md5.update(str.getBytes(), 0, str.length());
-                result = String.format("%32X", new BigInteger(1, md5.digest()));
+                byte[] bytes = str.getBytes(Charset.forName("UTF-8"));// 需要注意中文的时候，下面的bytes.length不能使用str.length
+                md5.update(bytes, 0, bytes.length);
+                result = String.format("%032X", new BigInteger(1, md5.digest()));
             } catch (Exception e) {
             }
         }

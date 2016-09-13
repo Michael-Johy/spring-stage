@@ -12,7 +12,7 @@ public class ConfigManager {
 
     private static final String PROP_LIST_KEY = "property.list";
 
-    private static ConfigProperties configProperties = null;
+    private static volatile ConfigProperties configProperties = null;
 
     public static ConfigProperties getConfigProperties() {
         if (null == configProperties) {
