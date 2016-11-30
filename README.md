@@ -29,6 +29,11 @@
    - http://localhost:80/api/swagger.json
 - Result
   ![picture](https://github.com/Michael-Johy/spring-johnny/blob/master/swagger.png)
+
+## Spring Extensible XML authoring
+- Reference
+    - Springframework-reference #41
+
 ## Requirement
 - JDK1.8+
 - Spring Framework4.2.6.RELEASE
