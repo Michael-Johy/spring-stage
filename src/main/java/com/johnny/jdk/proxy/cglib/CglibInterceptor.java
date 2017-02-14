@@ -7,7 +7,7 @@ import net.sf.cglib.proxy.MethodProxy;
 import java.lang.reflect.Method;
 
 /**
- * Description:
+ * Description: 这里只考虑基于方法的拦截器。。CGLIB支持基于字段和构造器的拦截器
  * <p>
  * Author: johnny
  * Date  : 2017-02-08 16:30
